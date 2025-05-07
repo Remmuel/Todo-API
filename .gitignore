@@ -1,8 +1,0 @@
-node_modules/
-dist/
-.angular/
-.vs/
-.vscode/
-out-tsc/
-*.env
-npm-debug.log*
