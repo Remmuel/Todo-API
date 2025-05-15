@@ -29,7 +29,7 @@ namespace TodoAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
         {
             var item = await _repository.GetByIdAsync(id);
             if (item == null)
@@ -39,16 +39,23 @@ namespace TodoAPI.Controllers
         }
 
         [HttpPost("bulk")]
-        public async Task<ActionResult<bool>> PostTodoItem(TodoItem todoItem)
+        public async Task<ActionResult<bool>> PostTodoItem(TodoDTO dto)
         {
-            var created = await _repository.AddAsync(todoItem);
+            var todoItem = new TodoItem
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                Completed = dto.Completed,
+                DateCreated = dto.DateCreated,
+            };
 
+            var created = await _repository.AddAsync(todoItem);
             return Ok(true);
 
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
+        public async Task<IActionResult> PutTodoItem(int id, TodoItem todoItem)
         {
             var updated = await _repository.UpdateAsync(id, todoItem);
             if (!updated)
@@ -58,11 +65,13 @@ namespace TodoAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTodoItem(long id)
+        public async Task<IActionResult> DeleteTodoItem(int id)
         {
             var deleted = await _repository.DeleteAsync(id);
             if (!deleted)
+            {
                 return NotFound();
+            }
 
             return NoContent();
         }

@@ -1,8 +1,13 @@
-bin/
-obj/
+# Visual Studio files
 .vs/
 *.user
 *.suo
-*.dbmdl
+
+# Build results
+bin/
+obj/
+
+# Other
+*.vsidx
 *.log
-.env
+*.tmp

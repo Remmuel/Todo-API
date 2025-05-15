@@ -6,15 +6,20 @@ using TodoAPI.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
+builder.Services.AddScoped<ITodoRepository, EfTodoRepository>();
 //builder.Services.AddScoped<IWeatherIdService, ScopedService>();
 //builder.Services.AddTransient<IWeatherIdService, TransientService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+}); ;
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-//builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+builder.Services.AddDbContext<TodoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
+Console.WriteLine("Connection string: " + builder.Configuration.GetConnectionString("DBConnection"));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularClient",
@@ -25,6 +30,11 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<TodoContext>(); db.Database.Migrate();
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

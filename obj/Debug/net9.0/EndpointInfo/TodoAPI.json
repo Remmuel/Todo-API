@@ -55,7 +55,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -93,7 +93,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -133,7 +133,7 @@
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -153,17 +153,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TodoItem"
+                "$ref": "#/components/schemas/TodoDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TodoItem"
+                "$ref": "#/components/schemas/TodoDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TodoItem"
+                "$ref": "#/components/schemas/TodoDTO"
               }
             }
           }
@@ -207,25 +207,46 @@
   },
   "components": {
     "schemas": {
+      "TodoDTO": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Completed": {
+            "type": "boolean"
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "DateCreated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "TodoItem": {
         "type": "object",
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
-          "name": {
+          "Name": {
             "type": "string",
             "nullable": true
           },
-          "completed": {
+          "Completed": {
             "type": "boolean"
           },
-          "description": {
+          "Description": {
             "type": "string",
             "nullable": true
           },
-          "dateCreated": {
+          "DateCreated": {
             "type": "string",
             "format": "date-time"
           }

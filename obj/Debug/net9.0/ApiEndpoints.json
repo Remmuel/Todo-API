@@ -29,7 +29,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int64",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -55,7 +55,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int64",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
@@ -76,7 +76,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int64",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -91,8 +91,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "todoItem",
-        "Type": "TodoAPI.Models.TodoItem",
+        "Name": "dto",
+        "Type": "TodoAPI.Models.TodoDTO",
         "IsRequired": true
       }
     ],
